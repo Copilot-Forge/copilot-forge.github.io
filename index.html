@@ -202,7 +202,7 @@
                                         <div class="bg-light p-4 rounded-4">
                                             <div class="text-primary fw-bolder mb-2">24<sup>th</sup> April 2024</div>
                                             <div class="small fw-bolder">AI 101</div>
-                                            <div class="small text-muted">Understanding the foundations of Artification Intelligence</div>
+                                            <div class="small text-muted">Understanding the foundations of Artificial Intelligence</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-8"><div>Your crash course in all things artificially intelligent! From robots to neural networks, buckle up for a wild ride through the world of tech's coolest brainiacs. Get ready to decode the mysteries, understand the algorithms, and maybe even teach Siri a thing or two. Let's geek out and dive deep into the future of productivity!</div></div>
@@ -272,10 +272,7 @@
                                   <!-- has successfully submitted-->
                                   <div class="d-none" id="submitSuccessMessage">
                                       <div class="text-center mb-3">
-                                          <div class="fw-bolder">Form submission successful!</div>
-                                          To activate this form, sign up at
-                                          <br />
-                                          <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                          <div class="fw-bolder">Thank you for registring!</div>
                                       </div>
                                   </div>
                                   <!-- Submit error message-->
@@ -298,11 +295,38 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
         <script type="text/javascript">
           mixpanel.init('8a0a9d67c5409538dad3ba0a5e3ae221', {debug: true, track_pageview: true, persistence: 'localStorage'});
           mixpanel.track('PageView', {
             'Page': 'Home'
           })
+
+          var firebaseConfig = {
+            apiKey: "AIzaSyCbyseEIZyc095OPQHV87M4xOZcAWc721Y",
+            authDomain: "copilot-forge.firebaseapp.com",
+            projectId: "copilot-forge",
+            storageBucket: "copilot-forge.appspot.com",
+            messagingSenderId: "970866411068",
+            appId: "1:970866411068:web:b9144eb8f8833155806539"
+          };
+          firebase.initializeApp(firebaseConfig);
+
+          document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var email = document.getElementById('email').value;
+
+            firebase.firestore().collection('contacts').add({
+                email: email
+            }).then(function() {
+                document.getElementById('submitSuccessMessage').classList.remove('d-none');
+            }).catch(function(error) {
+                document.getElementById('submitErrorMessage').classList.remove('d-none');
+            });
+          });
         </script>
     </body>
 </html>
+</div>
